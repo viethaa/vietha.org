@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+
+  --bg: #f3ead9;
+  --bg-elevated: #ebe0cb;
+  --ink: #201c15;
+  --ink-soft: #6b6255;
+  --ink-faint: #928a7c;
+  --accent: #c1552a;
+  --accent-ink: #fff8ef;
+  --moss: #5c6b47;
+  --line: rgba(32, 28, 21, 0.14);
+  --line-strong: rgba(32, 28, 21, 0.28);
+  --shadow: rgba(32, 28, 21, 0.08);
+
+  --grain-opacity: 0.05;
+}
+
+[data-theme="night"] {
+  color-scheme: dark;
+
+  --bg: #14151a;
+  --bg-elevated: #1c1e25;
+  --ink: #f1ece0;
+  --ink-soft: #a7a191;
+  --ink-faint: #6f6a5e;
+  --accent: #e88a54;
+  --accent-ink: #191410;
+  --moss: #8ea36a;
+  --line: rgba(241, 236, 224, 0.12);
+  --line-strong: rgba(241, 236, 224, 0.24);
+  --shadow: rgba(0, 0, 0, 0.35);
+
+  --grain-opacity: 0.07;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Fraunces", "Iowan Old Style", ui-serif, Georgia, serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+@layer base {
+  a {
+    color: inherit;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+.font-mono {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.01em;
+}
+
+.font-display {
+  font-family: "Fraunces", "Iowan Old Style", ui-serif, Georgia, serif;
+  font-variation-settings: "SOFT" 40, "opsz" 100;
+}
+
+/* Fine paper-grain texture, static and cheap (no filters, no JS) */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  opacity: var(--grain-opacity);
+  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-size: 3px 3px;
+  color: var(--ink);
+}
+
+/* Cursor-follow ambient glow, positioned via inline custom properties */
+.cursor-glow {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    620px circle at var(--mx, 50%) var(--my, 30%),
+    color-mix(in srgb, var(--accent) 8%, transparent),
+    transparent 70%
+  );
+  transition: background 0.15s ease-out;
+}
+
+.underline-fade {
+  position: relative;
+  text-decoration: none;
+}
+
+.underline-fade::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.08em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.underline-fade:hover::after,
+.underline-fade:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
