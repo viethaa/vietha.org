@@ -11,18 +11,18 @@ export const navEntries: NavEntry[] = [
     description: 'a little about who I am and what I’m doing',
   },
   {
+    path: '/research',
+    label: 'research',
+    description: 'papers, experiments, and rabbit holes',
+  },
+  {
     path: '/projects',
     label: 'projects',
-    description: 'things I’ve built, broken, and occasionally shipped',
+    description: 'a running list of what I’ve been building',
   },
   {
-    path: '/writing',
-    label: 'writing',
-    description: 'essays and half-formed thoughts, out in the open',
-  },
-  {
-    path: '/notes',
-    label: 'notes',
-    description: 'songs on repeat, movies I’ve watched, notes to myself',
+    path: '/photography',
+    label: 'photography',
+    description: 'a few frames worth keeping',
   },
 ]

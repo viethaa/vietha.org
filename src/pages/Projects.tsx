@@ -1,17 +1,50 @@
 import { motion } from 'framer-motion'
+import type { ReactNode } from 'react'
 import SectionHeader from '../components/SectionHeader'
-import { projects } from '../data/projects'
+import { ArchiveIcon, CheckIcon, PulseIcon } from '../components/StatusIcons'
+import { projects, type Project, type ProjectStatus } from '../data/projects'
 
-const gradients = [
-  'linear-gradient(135deg, var(--accent), var(--moss))',
-  'linear-gradient(135deg, var(--moss), var(--bg-elevated))',
-  'linear-gradient(135deg, var(--ink-faint), var(--accent))',
+const sections: {
+  status: ProjectStatus
+  label: string
+  icon: ReactNode
+  color: string
+}[] = [
+  { status: 'in-progress', label: 'In Progress', icon: <PulseIcon />, color: 'var(--accent)' },
+  { status: 'finished', label: 'Finished', icon: <CheckIcon />, color: 'var(--moss)' },
+  { status: 'archived', label: 'Archived', icon: <ArchiveIcon />, color: 'var(--ink-faint)' },
 ]
 
-const statusColor: Record<string, string> = {
-  live: 'var(--moss)',
-  'in progress': 'var(--accent)',
-  archived: 'var(--ink-faint)',
+function ProjectRow({
+  project,
+  index,
+  dimmed,
+}: {
+  project: Project
+  index: number
+  dimmed?: boolean
+}) {
+  return (
+    <motion.a
+      href={project.url}
+      target="_blank"
+      rel="noreferrer"
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: dimmed ? 0.65 : 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.4, delay: (index % 6) * 0.05 }}
+      className="group flex items-start justify-between gap-4 rounded-lg px-5 py-4 transition-colors hover:bg-[color-mix(in_srgb,var(--bg-elevated)_85%,var(--ink)_8%)]"
+      style={{ background: 'var(--bg-elevated)' }}
+    >
+      <div className="min-w-0">
+        <h3 className="font-display text-lg font-semibold transition-colors group-hover:text-(--accent)">
+          {project.name}
+        </h3>
+        <p className="mt-1 text-sm text-(--ink-soft)">{project.description}</p>
+      </div>
+      <span className="shrink-0 font-mono text-xs text-(--ink-faint)">{project.year}</span>
+    </motion.a>
+  )
 }
 
 export default function Projects() {
@@ -19,54 +52,44 @@ export default function Projects() {
     <div>
       <SectionHeader
         title="projects"
-        description="Things I've built. Some finished, some very much not."
+        description="Random ideas and projects I've worked on pulled from my GitHub repositories"
       />
 
-      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {projects.map((project, i) => (
-          <motion.article
-            key={project.name}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: [0.65, 0, 0.35, 1] as const }}
-            className="group overflow-hidden rounded-xl border"
-            style={{ borderColor: 'var(--line)', background: 'var(--bg-elevated)' }}
-          >
-            <div
-              className="h-28 w-full transition-transform duration-500 group-hover:scale-105"
-              style={{ background: gradients[i % gradients.length], opacity: 0.85 }}
-            />
-            <div className="p-5">
-              <div className="flex items-baseline justify-between gap-3">
-                <h2 className="font-display text-2xl">{project.name}</h2>
-                <span className="font-mono text-xs text-(--ink-faint)">{project.year}</span>
+      <div className="mt-12">
+        {sections.map(({ status, label, icon, color }, si) => {
+          const items = projects.filter((p) => p.status === status)
+          if (items.length === 0) return null
+
+          return (
+            <section
+              key={status}
+              className={si > 0 ? 'mt-12 border-t pt-10' : ''}
+              style={{ borderColor: 'var(--line)' }}
+            >
+              <div className="flex items-center gap-2.5">
+                <span
+                  className="flex h-6 w-6 items-center justify-center rounded-full"
+                  style={{ color, background: `color-mix(in srgb, ${color} 16%, transparent)` }}
+                >
+                  {icon}
+                </span>
+                <h2 className="font-display text-xl font-semibold">{label}</h2>
+                <span className="font-mono text-xs text-(--ink-faint)">{items.length}</span>
               </div>
 
-              <p className="mt-2 text-(--ink-soft)">{project.description}</p>
-
-              <div className="mt-4 flex flex-wrap items-center gap-2">
-                <span
-                  className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-(--ink-soft)"
-                >
-                  <span
-                    className="h-1.5 w-1.5 rounded-full"
-                    style={{ background: statusColor[project.status] }}
+              <div className="mt-4 space-y-3">
+                {items.map((project, i) => (
+                  <ProjectRow
+                    key={project.name}
+                    project={project}
+                    index={i}
+                    dimmed={status === 'archived'}
                   />
-                  {project.status}
-                </span>
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border px-2 py-0.5 font-mono text-[11px] text-(--ink-soft)"
-                    style={{ borderColor: 'var(--line)' }}
-                  >
-                    {tag}
-                  </span>
                 ))}
               </div>
-            </div>
-          </motion.article>
-        ))}
+            </section>
+          )
+        })}
       </div>
     </div>
   )

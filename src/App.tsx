@@ -1,15 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
-import Self from './pages/Self'
-import MovieShelf from './pages/notes/MovieShelf'
-import MusicBillboard from './pages/notes/MusicBillboard'
-import NotesLayout from './pages/notes/NotesLayout'
-import NotesOverview from './pages/notes/NotesOverview'
 import NotFound from './pages/NotFound'
+import Photography from './pages/Photography'
 import Projects from './pages/Projects'
-import Writing from './pages/Writing'
-import WritingPost from './pages/WritingPost'
+import Research from './pages/Research'
+import ResearchPost from './pages/ResearchPost'
+import Self from './pages/Self'
 
 export default function App() {
   return (
@@ -18,13 +15,9 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="self" element={<Self />} />
         <Route path="projects" element={<Projects />} />
-        <Route path="writing" element={<Writing />} />
-        <Route path="writing/:slug" element={<WritingPost />} />
-        <Route path="notes" element={<NotesLayout />}>
-          <Route index element={<NotesOverview />} />
-          <Route path="music" element={<MusicBillboard />} />
-          <Route path="movies" element={<MovieShelf />} />
-        </Route>
+        <Route path="research" element={<Research />} />
+        <Route path="research/:slug" element={<ResearchPost />} />
+        <Route path="photography" element={<Photography />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

@@ -2,10 +2,18 @@ import SectionHeader from '../components/SectionHeader'
 import { GithubIcon, InstagramIcon, LinkedinIcon, SpotifyIcon } from '../components/SocialIcons'
 
 const socialLinks = [
-  { label: 'instagram', href: 'https://instagram.com/yourhandle', Icon: InstagramIcon },
-  { label: 'github', href: 'https://github.com/yourhandle', Icon: GithubIcon },
-  { label: 'linkedin', href: 'https://linkedin.com/in/yourhandle', Icon: LinkedinIcon },
-  { label: 'spotify', href: 'https://open.spotify.com/user/yourhandle', Icon: SpotifyIcon },
+  { label: 'instagram', href: 'https://www.instagram.com/bobbhaa_/', Icon: InstagramIcon },
+  { label: 'github', href: 'https://github.com/viethaa', Icon: GithubIcon },
+  {
+    label: 'linkedin',
+    href: 'https://www.linkedin.com/in/viet-ha-255374364/',
+    Icon: LinkedinIcon,
+  },
+  {
+    label: 'spotify',
+    href: 'https://open.spotify.com/playlist/42ohWNnonU6kJNrqLBtmYX?si=f702481c21da488e',
+    Icon: SpotifyIcon,
+  },
 ]
 
 export default function Self() {
@@ -16,10 +24,10 @@ export default function Self() {
         description="A few honest sentences about who I am, written by me, for anyone curious enough to read this far."
       />
 
-      <div className="mt-12 space-y-6 text-(--ink) sm:text-lg">
+      <div className="mt-12 max-w-2xl space-y-6 break-words text-(--ink) sm:text-lg">
         <p>
           Hi there! I'm Viet — some people call me Bob. I'm 17, currently a senior at Concordia
-          Hanoi, and applying to universities in the U.S. to study Machine Learning or AI
+          Hanoi, and applying to universities in the U.S. to study Machine Learning and AI
           Engineering.
         </p>
         <p>
@@ -28,8 +36,9 @@ export default function Self() {
           recently, cybersecurity.
         </p>
         <p>
-          My entertainment comes from making projects. I love using my talent to build for others.
-          Feel free to reach out any time!
+          Outside of that, I'm an avid music listener, I play football and watch MMA, and I'll
+          play just about any game on the internet. If you've got a project idea or just want to
+          talk, feel free to reach out!
         </p>
         <p>
           email:{' '}
@@ -43,7 +52,7 @@ export default function Self() {
       </div>
 
       <div
-        className="mt-16 flex flex-wrap items-center gap-x-8 gap-y-4 border-t pt-8"
+        className="mt-16 grid grid-cols-2 gap-x-6 gap-y-4 border-t pt-8 sm:flex sm:flex-wrap sm:items-center sm:gap-x-8"
         style={{ borderColor: 'var(--line)' }}
       >
         {socialLinks.map(({ label, href, Icon }) => (

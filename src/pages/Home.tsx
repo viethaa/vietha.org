@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Logo from '../components/Logo'
 import { navEntries } from '../data/nav'
 
 const container = {
@@ -20,8 +21,8 @@ export default function Home() {
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="pt-8 sm:pt-16">
-      <motion.h1 variants={item} className="font-display text-5xl leading-[1.05] sm:text-6xl">
-        Viet Ha
+      <motion.h1 variants={item}>
+        <Logo size={56} />
       </motion.h1>
 
       <motion.nav variants={item} className="mt-12 border-t" style={{ borderColor: 'var(--line)' }}>
@@ -35,7 +36,7 @@ export default function Home() {
             style={{ borderColor: 'var(--line)' }}
           >
             <span className="flex items-baseline gap-1">
-              <span className="font-display text-3xl text-(--ink-faint) sm:text-4xl">/</span>
+              <span className="font-display text-3xl text-(--ink) sm:text-4xl">/</span>
               <span className="font-display text-3xl transition-colors group-hover:text-(--accent) sm:text-4xl">
                 {entry.label}
               </span>
@@ -49,13 +50,6 @@ export default function Home() {
               }}
             >
               {entry.description}
-            </span>
-
-            <span
-              aria-hidden
-              className="font-display ml-3 text-2xl transition-transform duration-300 group-hover:translate-x-1 group-hover:text-(--accent)"
-            >
-              &rarr;
             </span>
           </Link>
         ))}
