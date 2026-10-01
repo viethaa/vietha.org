@@ -2,7 +2,7 @@ import SectionHeader from '../components/SectionHeader'
 import { GithubIcon, InstagramIcon, LinkedinIcon, SpotifyIcon } from '../components/SocialIcons'
 
 const socialLinks = [
-  { label: 'instagram', href: 'https://www.instagram.com/bobbhaa_/', Icon: InstagramIcon },
+  { label: 'instagram', href: 'https://www.instagram.com/', Icon: InstagramIcon },
   { label: 'github', href: 'https://github.com/viethaa', Icon: GithubIcon },
   {
     label: 'linkedin',

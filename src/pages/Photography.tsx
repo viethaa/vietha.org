@@ -137,7 +137,7 @@ export default function Photography() {
       <SectionHeader title="photography" />
 
       <div className="mt-3 flex items-end justify-between gap-4">
-        <p className="max-w-lg text-(--ink-soft) sm:text-lg">Snapshots worth keeping.</p>
+        <p className="max-w-lg text-(--ink-soft) sm:text-lg">Snapshots taken by me.</p>
         <button
           onClick={() => setSlideshow(0)}
           className="inline-flex shrink-0 items-center gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-(--ink-faint) transition-colors hover:text-(--accent)"
